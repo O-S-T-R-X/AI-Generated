@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Domain Profiler</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Domain Profiler</h1>
+  <div class="search-container">
+    <label for="domain-input">Enter Domain:</label>
+    <input type="text" id="domain-input">
+    <button id="search-button">Search</button>
+  </div>
+
+  <div id="results-container">
+    <h2>Results:</h2>
+    <div id="dns-results"></div>
+    <div id="dns-map"></div>
+  </div>
+
+  <div id="intel-links">
+    <h2>Open-Source Intelligence:</h2>
+    <button id="urlscan-button">URLScan.io</button>
+    <button id="virustotal-button">VirusTotal</button>
+    <button id="otx-button">OTX</button>
+    <button id="xforce-button">IBM X-Force</button>
+    <button id="talos-button">Talos</button>
+    <button id="screenshot-button">Screenshot Machine</button>
+    <button id="checkphish-button">CheckPhish.io</button>
+    <button id="threatminer-button">ThreatMiner</button>
+    <button id="pulsedive-button">Pulsedive</button>
+    <button id="hostio-button">Host.io</button>
+    <button id="urlvoid-button">URLVoid</button>
+    <button id="joessandbox-button">Joe's Sandbox</button>
+    <button id="similarweb-button">SimilarWeb</button>
+    <button id="pulsedive-analyze-button">Pulsedive Analyze</button>
+    <button id="robtex-button">Robtex</button>
+  </div>
+
+  <script>
+    document.getElementById("search-button").addEventListener("click", function() {
+      var domain = document.getElementById("domain-input").value.trim();
+
+      // DNS results
+      var dnsResults = document.getElementById("dns-results");
+      dnsResults.innerHTML = "";
+
+      // DNS map
+      var dnsMap = document.getElementById("dns-map");
+      dnsMap.innerHTML = "<img src='https://dnsdumpster.com/static/map/" + domain + ".png' width='800' height='600'>";
+
+      // Open-Source Intelligence Links
+      document.getElementById("urlscan-button").onclick = function() {
+        window.open("https://urlscan.io/search/#" + domain, "_blank");
+      };
+
+      document.getElementById("virustotal-button").onclick = function() {
+        window.open("https://www.virustotal.com/gui/domain/" + domain, "_blank");
+      };
+
+      document.getElementById("otx-button").onclick = function() {
+        window.open("https://otx.alienvault.com/indicator/domain/" + domain, "_blank");
+      };
+
+      document.getElementById("xforce-button").onclick = function() {
+        window.open("https://exchange.xforce.ibmcloud.com/url/" + domain, "_blank");
+      };
+
+      document.getElementById("talos-button").onclick = function() {
+        window.open("https://talosintelligence.com/reputation_center/lookup?search=" + domain, "_blank");
+      };
+
+      document.getElementById("screenshot-button").onclick = function() {
+        window.open("https://www.screenshotmachine.com/website-screenshot/" + domain, "_blank");
+      };
+
+      document.getElementById("checkphish-button").onclick = function() {
+        window.open("https://checkphish.ai/domain/check/" + domain, "_blank");
+      };
+
+      document.getElementById("threatminer-button").onclick = function() {
+        window.open("https://www.threatminer.org/domain.php?q=" + domain, "_blank");
+      };
+
+      document.getElementById("pulsedive-button").onclick = function() {
+        window.open("https://pulsedive.com/domain/" + domain, "_blank");
+      };
+
+      document.getElementById("hostio-button").onclick = function() {
+        window.open("https://host.io/" + domain, "_blank");
+      };
+
+      document.getElementById("urlvoid-button").onclick = function() {
+        window.open("https://www.urlvoid.com/scan/" + domain, "_blank");
+      };
+
+      document.getElementById("joessandbox-button").onclick = function() {
+        window.open("https://www.joesandbox.com/search?q=" + domain, "_blank");
+      };
+
+      document.getElementById("similarweb-button").onclick = function() {
+        window.open("https://www.similarweb.com/website/" + domain, "_blank");
+      };
+
+      document.getElementById("pulsedive-analyze-button").onclick = function() {
+        window.open("https://pulsedive.com/analyze/" + domain, "_blank");
+      };
+
+      document.getElementById("robtex-button").onclick = function() {
+        window.open("https://www.robtex.com/dns-lookup/" + domain, "_blank");
+      };
+    });
+  </script>
+</body>
+</html>
