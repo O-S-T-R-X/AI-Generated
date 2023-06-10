@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Task Recorder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+    }
+    input[type="text"] {
+      width: 300px;
+      padding: 8px;
+      font-size: 16px;
+    }
+    button {
+      padding: 8px 16px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #4CAF50;
+      color: #fff;
+    }
+    #export-button {
+      display: block;
+      margin: 0 auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+  <title>Task Recorder</title>
+</head>
+<body>
+  <h1>Task Recorder</h1>
+  <form id="task-form">
+    <label for="task-input">Task:</label>
+    <input type="text" id="task-input" required>
+    <button type="submit">Add Task</button>
+  </form>
+  <table id="task-table">
+    <thead>
+      <tr>
+        <th>Task</th>
+        <th>Date and Time</th>
+      </tr>
+    </thead>
+    <tbody id="task-body"></tbody>
+  </table>
+  <button id="export-button">Export to CSV</button>
+  <script>
+    var tasks = [];
+    function addTask(task) {
+      var timestamp = new Date().toLocaleString();
+      tasks.push({ task: task, timestamp: timestamp });
+      tasks.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+    }
+    function renderTasks() {
+      var taskBody = document.getElementById('task-body');
+      taskBody.innerHTML = '';
+      tasks.forEach(function(task) {
+        var row = document.createElement('tr');
+        var taskCell = document.createElement('td');
+        taskCell.textContent = task.task;
+        row.appendChild(taskCell);
+        var timestampCell = document.createElement('td');
+        timestampCell.textContent = task.timestamp;
+        row.appendChild(timestampCell);
+        taskBody.appendChild(row);
+      });
+    }
+    document.getElementById('task-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      var taskInput = document.getElementById('task-input');
+      var task = taskInput.value.trim();
+      if (task) {
+        addTask(task);
+        renderTasks();
+        taskInput.value = '';
+      }
+    });
+    document.getElementById('export-button').addEventListener('click', function() {
+      var csvContent = 'data:text/csv;charset=utf-8,';
+      tasks.forEach(function(task) {
+        var row = [task.task, task.timestamp].map(field => '"' + field.replace(/"/g, '""') + '"');
+        csvContent += row.join(',') + '\r\n';
+      });
+      var encodedUri = encodeURI(csvContent);
+      var link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', 'tasks.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  </script>
+</body>
+</html>
