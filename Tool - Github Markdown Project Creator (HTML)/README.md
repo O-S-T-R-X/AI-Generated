@@ -1,4 +1,4 @@
-# Github Markdown Project Creator
+# Markdown Project ReadMe Creator
 
 ## About
 
